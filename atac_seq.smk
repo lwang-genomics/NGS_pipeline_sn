@@ -42,8 +42,8 @@ rule fastqc_raw:
         r2 = lambda wildcards: FASTQ_MAP[wildcards.sample]["r2"]
 
     output:
-        r1_html = "{sample}_R1_fastqc.html",
-        r2_html = "{sample}_R2_fastqc.html"
+        r1_html = "{sample}.R1_fastqc.html",
+        r2_html = "{sample}.R2_fastqc.html"
     threads: config["threads"]
     shell:
         """
@@ -131,7 +131,7 @@ rule call_peaks:
     output:
         peaks = "{sample}_peaks.narrowPeak" if config["peaktype"] == "narrow" else "{sample}_peaks.broadPeak"
     params:
-        species = "hs" if GENOME["name"] == "hg38" else "mm"
+        species = "hs" if GENOME["name"] == "hg38" else "mm",
         peak_flag = "--broad --broad-cutoff 0.01" if config["peaktype"] == "broad" else "-q 0.01"
     shell:
         """
