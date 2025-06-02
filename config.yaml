@@ -1,0 +1,14 @@
+genome:
+  name: hg38 #or mm10
+  bwa_index: ~/Desktop/CNRS_Research/NGS_pipeline/lib/hg38/bwa_index/genome # or path to mm10 genome folder; or any given species
+
+
+peaktype: narrow     # or broad
+threads: 4
+mapq: 5
+keep_intermediate: false # or true
+skip_trimming: false
+
+
+
+
