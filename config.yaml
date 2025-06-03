@@ -7,7 +7,4 @@ threads: 4
 mapq: 5
 keep_intermediate: false # or true
 skip_trimming: false
-
-
-
-
+read_type: paired  # or "single"; useful for ChIP-seq and RNA-seq
