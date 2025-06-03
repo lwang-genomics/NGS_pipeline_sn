@@ -16,21 +16,19 @@ This step provides genome index files for commonly used genomes (hg38, mm10) pre
 ```bash
 cd NGS_pipeline_sn
 bash get_references.sh
-
-# All reference genomes compatible with the workflow (e.g., STAR, Salmon, BWA indices) will be organized in the NGS_pipeline_sn/lib/ folder.
 ```
+*All reference genomes compatible with the workflow (e.g., STAR, Salmon, BWA indices) will be organized in the NGS_pipeline_sn/lib/ folder*
 
 ## External Dependencies
 
 Please ensure the following tools are installed and accessible from your system PATH:
 
 ```text
-## Common
-
+## Common:
 Snakemake
 Trimmomatic
 SAMtools
-Fastqc
+FastQC
 MultiQC
 wigToBigWig
 Deeptools
@@ -47,60 +45,7 @@ MACS2
 Aatqv
 
 ```
-
-
-## I. RNA-Seq Processing Pipeline 
-
-This Snakemake pipeline provides a modular and reproducible workflow for processing bulk RNA-seq data, supporting both traditional alignment-based quantification (STAR + featureCounts) and fast pseudo-alignment (Salmon). It automatically detects FASTQ files and processes them through quality control, optional adapter trimming, alignment or quantification, quantification QC, and visualization. Configuration is centralized via a config.yaml file for flexible, multi-sample analysis.
-
-
-### Features
-
-- Automatic detection of input FASTQ files (\*.R1.fq.gz, \*.R1.fastq, etc.)
-- Supports both paired-end and single-end reads
-- Optional read trimming with **Trimmomatic**
-- Choice of traditional mapping with **STAR** or pseudo-alignment via **Salmon**
-- Strand-specific quantification support
-- Quality control via **FastQC** and **Qualimap**
-- Generation of normalized BigWig files for visualization
-- Integrated summary with **MultiQC**
-- Configurable species genome choices
-- Customizable via a single config.yaml file
-
-### Requirements
-
 Install dependencies using mamba, conda, or your preferred environment manager.
-
-	Snakemake
-	STAR
-	Salmon
-	subread
-	SAMtools
-	Trimmomatic
-	Qualimap
-	wigToBigWig
-	FastQC
-	MultiQC
-
-
-
-### Usage
-
-1. Place rna_seq.smk, config.yaml, and all sample FASTQ files into your working directory.
-
-
-2. Edit config.yaml to suit your experiment:
-
-
-3. Run Snakemake 
-```
-snakemake -s chip_seq.smk --cores 8
-```
-Optional: Run in background and log output:
-
-```
-snakemake -s chip_seq.smk --cores 8 > snakemake.log 2>&1 &
-```
 
 
 ### Configuration
@@ -120,6 +65,43 @@ genome:
   chrom_sizes: path/to/chrom.sizes
 keep_intermediate: false
 skip_trimming: false
+```
+
+## I. RNA-Seq Processing Pipeline 
+
+This Snakemake pipeline provides a modular and reproducible workflow for processing bulk RNA-seq data, supporting both traditional alignment-based quantification (STAR + featureCounts) and fast pseudo-alignment (Salmon). It automatically detects FASTQ files and processes them through quality control, optional adapter trimming, alignment or quantification, quantification QC, and visualization. Configuration is centralized via a config.yaml file for flexible, multi-sample analysis.
+
+
+### Features
+
+- Automatic detection of input FASTQ files (\*.R1.fq.gz, \*.R1.fastq, etc.)
+- Supports both paired-end and single-end reads
+- Optional read trimming with **Trimmomatic**
+- Choice of traditional mapping with **STAR** or pseudo-alignment via **Salmon**
+- Strand-specific quantification support
+- Quality control via **FastQC** and **Qualimap**
+- Generation of normalized BigWig files for visualization
+- Integrated summary with **MultiQC**
+- Configurable species genome choices
+- Customizable via a single config.yaml file
+
+
+### Usage
+
+1. Place rna_seq.smk, config.yaml, and all sample FASTQ files into your working directory.
+
+
+2. Edit config.yaml to suit your experiment:
+
+
+3. Run Snakemake 
+```
+snakemake -s rna_seq.smk --cores 8
+```
+Optional: Run in background and log output:
+
+```
+snakemake -s rna_seq.smk --cores 8 > snakemake.log 2>&1 &
 ```
 
 
@@ -169,17 +151,6 @@ This Snakemake pipeline streamlines the analysis of ChIP-seq data by automating 
 - Possible to provide a customized species genome
 - Configurable via a single config.yaml
 
-### Requirements
-	Snakemake
-	BWA
-	SAMtools
-	Trimmomatic
-	FastQC
-	deepTools
-	MACS2
-	MultiQC
-
-Install dependencies using mamba, conda, or your preferred environment manager.
 
 ### Usage
 1. Copy and paste chip_seq.smk and config.yaml into your working folder with all sample FASTQ files
@@ -196,23 +167,6 @@ Optional: Log output to a file and run in background:
 
 ```
 snakemake -s chip_seq.smk --cores 8 > snakemake.log 2>&1 &
-```
-
-
-### Configuration
-
-Edit the config.yaml file to customize:
-
-```text
-threads: 4                       # Threads per rule
-mapq: 5                          # Minimum MAPQ for filtering
-read_type: paired                # Read type: paired or single
-genome: 
-	name: hg38                   # Genome name (e.g., hg38 or mm10)
-	bwa_index:[bwa_index/genome] # Path to BWA index (+ prefix)
-peaktype: narrow                 # Peak type: narrow or broad
-keep_intermediate: false         # Whether to retain intermediate files
-skip_trimming: false             # Skip trimming step if reads are already preprocessed
 ```
 
 
@@ -257,19 +211,6 @@ This Snakemake pipeline provides a lightweight, scalable, and reproducible solut
 - Possible to provide a customized species genome
 - Configurable via a single config.yaml
 
-### Requirements
-	Snakemake
-	BWA
-	SAMtools
-	Trimmomatic
-	FastQC
-	deepTools
-	MACS2
-	ataqv
-	MultiQC
-
-Install dependencies using mamba, conda, or your preferred environment manager.
-
 ### Usage
 1. Copy and paste atac_seq.smk and config.yaml into the folder that stores all sample fastq files
 
@@ -286,22 +227,6 @@ Optional: Log output to a file and run in background:
 ```
 snakemake -s atac_seq.smk --cores 8 > snakemake.log 2>&1 &
 ```
-
-
-### Configuration
-
-Edit the config.yaml file to customize:
-
-```text
-threads: 4                   # Threads per rule
-mapq: 5                      # Minimum MAPQ for filtering
-genome: hg38                 # Genome name (e.g., hg38 or mm10)
-bwa_index:[bwa_index/genome] # Path to BWA index (+ prefix)
-peaktype: narrow             # Peak type: narrow or broad
-keep_intermediate: false     # Whether to retain intermediate files
-skip_trimming: false         # Skip trimming step if reads are already preprocessed
-```
-
 
 ### Output Files
 - sampleX_filtered_sorted.bam(.bai) – filtered, sorted, and indexed BAM files
