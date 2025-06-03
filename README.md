@@ -49,7 +49,7 @@ Aatqv
 Install dependencies using mamba, conda, or your preferred environment manager.
 
 
-### Configuration
+## Configuration
 
 Edit the config.yaml file to customize:
 
@@ -70,7 +70,7 @@ skip_trimming: false
 
 ## I. RNA-Seq Processing Pipeline 
 
-This Snakemake pipeline provides a modular and reproducible workflow for processing bulk RNA-seq data, supporting both traditional alignment-based quantification (STAR + featureCounts) and fast pseudo-alignment (Salmon). It automatically detects FASTQ files and processes them through quality control, optional adapter trimming, alignment or quantification, quantification QC, and visualization. Configuration is centralized via a config.yaml file for flexible, multi-sample analysis.
+This Snakemake pipeline provides a modular and reproducible workflow for processing bulk RNA-seq data, supporting both traditional alignment-based quantification (STAR) and fast pseudo-alignment (Salmon). It automatically detects FASTQ files and processes them through quality control, optional adapter trimming, alignment, quantification, QC, and visualization. Configuration is centralized via a config.yaml file for flexible, multi-sample analysis.
 
 
 ### Features
@@ -110,7 +110,7 @@ snakemake -s rna_seq.smk --cores 8 > snakemake.log 2>&1 &
 Depending on mode (pseudo: false or true), the pipeline generates:
 
 #### STAR mode:
-- {sample}_Aligned.sortedByCoord.out.bam – Aligned BAM file
+
 - {sample}_filtered_sorted.bam(.bai) – Filtered and indexed BAM
 - {sample}_counts.txt – Gene-level counts from featureCounts
 - {sample}.str1.bw, .str2.bw – Strand-specific bigWig tracks
@@ -213,7 +213,7 @@ This Snakemake pipeline provides a lightweight, scalable, and reproducible solut
 - Configurable via a single config.yaml
 
 ### Usage
-1. Copy and paste atac_seq.smk and config.yaml into the folder that stores all sample fastq files
+1. Copy and paste atac_seq.smk and config.yaml into your working folder with all sample FASTQ files
 
 
 2. Modify the config.yaml file as needed
