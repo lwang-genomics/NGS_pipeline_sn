@@ -1,5 +1,6 @@
+# NGS_pipeline_sn: A Scalable and Reproducible Snakemake Workflow for RNA-seq, ChIP-seq, and ATAC-seq
 
-
+**NGS_pipeline_sn** is a modular and fully automated Snakemake workflow designed for robust and reproducible analysis of RNA-seq, ChIP-seq, and ATAC-seq data. Supporting both single-end and paired-end reads, the pipeline integrates standard NGS processing steps—including trimming, alignment, filtering, quantification, peak calling, and QC—while offering flexibility through a centralized config.yaml. With seamless scalability and transparent rule definitions, **NGS_pipeline_sn** is optimized for both local and high-performance computing environments.
 
 ## Installation
 
@@ -109,22 +110,22 @@ snakemake -s rna_seq.smk --cores 8 > snakemake.log 2>&1 &
 Depending on mode (pseudo: false or true), the pipeline generates:
 
 #### STAR mode:
-	•{sample}_Aligned.sortedByCoord.out.bam – Aligned BAM file
-	•{sample}_filtered_sorted.bam(.bai) – Filtered and indexed BAM
-	•{sample}_counts.txt – Gene-level counts from featureCounts
-	•{sample}.str1.bw, .str2.bw – Strand-specific bigWig tracks
-	•{sample}_qualimap/ – Qualimap QC folder
-	•multiqc_report.html – Summary report
+- {sample}_Aligned.sortedByCoord.out.bam – Aligned BAM file
+- {sample}_filtered_sorted.bam(.bai) – Filtered and indexed BAM
+- {sample}_counts.txt – Gene-level counts from featureCounts
+- {sample}.str1.bw, .str2.bw – Strand-specific bigWig tracks
+- {sample}_qualimap/ – Qualimap QC folder
+- multiqc_report.html – Summary report
 
 #### Salmon mode:
-	•{sample}_salmon_output/ – Quantification results
-	•multiqc_report.html – Summary report
+- {sample}_salmon_output/ – Quantification results
+- multiqc_report.html – Summary report
 
 ### Example Project Structure
 
 ```
 project/
-├── chip_seq.smk
+├── rna_seq.smk
 ├── config.yaml
 ├── sample1.R1.fq.gz
 ├── sample1.R2.fq.gz
