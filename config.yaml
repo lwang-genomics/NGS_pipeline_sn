@@ -3,8 +3,8 @@ genome:
   bwa_index: path_to/bwa_index/genome # or path to mm10 genome folder; or any given species
   star_index: path_to/star_index/ # star_index of a given species
   salmon_index: path_to/salmon_index/ # salmon_index from a giving species. Only used in RNA-seq pseudo-alignment mode 
-  chrom_sizes: path_to/hg38.chrom.sizes  #the chrom info file for a given species
-  gtf: path_to/gtf/gencode.v46.basic.annotation.gtf # matching gene annotation gtf 
+  chrom_sizes: path_to/chrom.sizes  #the chrom info file for a given species
+  gtf: path_to/gtf/annotation.gtf # matching gene annotation gtf 
 
 peaktype: narrow     # or broad; useful for ChIP-seq and ATAC-seq
 threads: 4

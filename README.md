@@ -254,6 +254,7 @@ project/
 
 MIT License
 
+
 ### Acknowledgments
 
 This pipeline integrates many excellent open-source bioinformatics tools. Credit goes to the developers of Snakemake, BWA, SAMtools, MACS2, deepTools, MultiQC and so on.
